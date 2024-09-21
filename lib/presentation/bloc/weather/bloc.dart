@@ -1,4 +1,3 @@
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../Widgets/Widgets.dart';
@@ -34,6 +33,9 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
     try {
       emit(state.copyWith(isLoading: true));
       final location = await LocationService.getCurrentLocation();
+      if (location == null) {
+        return;
+      }
       final result = await repository.getWeatherFromCoordinates(
         location.latitude,
         location.longitude,
@@ -53,11 +55,15 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
     FetchHourlyWeather event,
     Emitter<WeatherState> emit,
   ) async {
+    final location = await LocationService.getCurrentLocation(showError: false);
+    if (location == null&&state.weather == null) {
+      return;
+    }
     emit(state.copyWith(isLoading: true));
-    final location = await LocationService.getCurrentLocation();
+    
     final result = await repository.getHourlyWeatherByCoordinates(
-      lat: state.weather?.coord.lat ?? location.latitude,
-      lon: state.weather?.coord.lon ?? location.longitude,
+      lat: state.weather?.coord.lat ?? location!.latitude,
+      lon: state.weather?.coord.lon ?? location!.longitude,
     );
     emit(state.copyWith(isLoading: false, hourlyWeather: result));
   }
@@ -68,11 +74,15 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
     FetchWeeklyWeather event,
     Emitter<WeatherState> emit,
   ) async {
+     final location = await LocationService.getCurrentLocation(showError: false);
+    if (location == null&&state.weather == null) {
+      return;
+    }
     emit(state.copyWith(isLoading: true));
-    final location = await LocationService.getCurrentLocation();
+   
     final result = await repository.getWeeklyForecastByCoordinates(
-      state.weather?.coord.lat ?? location.latitude,
-      state.weather?.coord.lon ?? location.longitude,
+      state.weather?.coord.lat ?? location!.latitude,
+      state.weather?.coord.lon ?? location!.longitude,
     );
     emit(state.copyWith(isLoading: false, weeklyWeather: result));
   }
@@ -113,8 +123,10 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
     ChangeSettingTempUnit event,
     Emitter<WeatherState> emit,
   ) async {
-    emit(state.copyWith(isLoading:true));
+    emit(state.copyWith(isLoading: true));
     AppGetXStorage.saveTempUnit(event.isCelsius);
-    emit(state.copyWith(isLoading: false,));
+    emit(state.copyWith(
+      isLoading: false,
+    ));
   }
 }

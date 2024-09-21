@@ -13,6 +13,6 @@ class AppStrings {
   static String forecastReport = 'Forecast Report';
 
   /// search your city here
-  static String searchCity = 'Search your city here';
+  static String searchCity = 'Search your city/zipcode here';
 
 }

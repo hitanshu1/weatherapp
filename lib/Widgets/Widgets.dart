@@ -257,7 +257,7 @@ class Widgets {
         child: FittedBox(
           child: CircularProgressIndicator(
             strokeWidth: 5,
-            valueColor: AlwaysStoppedAnimation<Color>(valueColor ?? Colorz.primary),
+            valueColor: AlwaysStoppedAnimation<Color>(valueColor ?? Colorz.white),
             backgroundColor: backgroundColor,
           ),
         ),
@@ -298,21 +298,21 @@ class Widgets {
   }
 
   /// common not found widget
-  static Widget notFoundWidget() {
-    return const Material(
-      child: Center(
-        child: ListTile(
-          title: Txt(
-             'Not found!',
-            fontWeight: FontWeight.bold,
-            fontSize: 50,
-            textAlign: TextAlign.center,
-          ),
-          subtitle: Txt(
-           'The requested content is not found at this moment.',
-            fontSize: 20,
-            textAlign: TextAlign.center,
-          ),
+  static Widget notFoundWidget({String? subTitle}) {
+    return  Center(
+      child: ListTile(
+        title:  Txt(
+           'Not found!',
+           color: Colorz.white,
+          fontWeight: FontWeight.bold,
+          fontSize: 50.sp,
+          textAlign: TextAlign.center,
+        ),
+        subtitle: Txt(
+        subTitle?? 'The requested content is not found at this moment.',
+          fontSize: 20.sp,
+          color: Colorz.white,
+          textAlign: TextAlign.center,
         ),
       ),
     );

@@ -98,7 +98,7 @@ class Txt extends StatefulWidget {
   }
   /// note Text widget
   factory Txt.note(String text) {
-    return Txt(text, fontSize: 15.sp, color: Colorz.grey,);
+    return Txt(text, fontSize: 15.sp, color: Colorz.white,);
   }
 
 /// Title widget

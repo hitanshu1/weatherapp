@@ -1,8 +1,10 @@
 
 // ignore_for_file: public_member_api_docs
 
+import '../../../Extensions/Extensions.dart';
 import '../../../core/constants/constants.dart';
 import '../Model.dart';
+import '../http/httpResult.dart';
 /// weather model 
 class WeatherModel extends Model {
   final Coord coord;
@@ -221,11 +223,11 @@ class Main extends Model{
     this.visibility,
   });
 
-  factory Main.fromJson(Map<String, dynamic> json) => Main(
+  factory Main.fromJson(Json json) => Main(
         temp: json['temp'] as double,
-        feelsLike: json['feels_like'] as double,
-        tempMin: json['temp_min'] as double,
-        tempMax: json['temp_max'] as double,
+        feelsLike: json.safeDouble('feels_like'),
+        tempMin: json.safeDouble('temp_min'),
+        tempMax: json.safeDouble('temp_max'),
         pressure: json['pressure'],
         humidity: json['humidity'],
         seaLevel: json['sea_level'],
@@ -284,10 +286,10 @@ class Wind extends Model {
     this.gust,
   });
 
-  factory Wind.fromJson(Map<String, dynamic> json) => Wind(
-        speed: json['speed'] ?? 0.0,
+  factory Wind.fromJson(Json json) => Wind(
+        speed: json.safeDouble('speed'),
         deg: json['deg'] ?? 0,
-        gust: json['gust'],
+        gust: json.safeDouble('gust'),
       );
 
   @override

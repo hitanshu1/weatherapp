@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs
 
+import '../../../Extensions/Extensions.dart';
 import '../../../core/constants/constants.dart';
 import '../Model.dart';
 import 'weather.dart';
@@ -88,7 +89,7 @@ class WeatherEntry extends Model {
   factory WeatherEntry.fromJson(Json json) {
     print(json['weather']);
     return WeatherEntry(
-      dt: json['dt'] ?? 0,
+      dt: json.safeInt('dt'),
       main: Main.fromJson(json['main']),
      
       weather:json['weather']!=null? (json['weather'] as List<dynamic>)
@@ -231,9 +232,9 @@ class Clouds extends Model {
     required this.all,
   });
 /// fromJson
-  factory Clouds.fromJson(Map<String, dynamic> json) {
+  factory Clouds.fromJson(Json json) {
     return Clouds(
-      all: json['all'],
+      all: json.safeInt('all'),
     );
   }
 
@@ -265,11 +266,11 @@ class Wind  extends Model{
     required this.gust,
   });
 /// fromJson
-  factory Wind.fromJson(Map<String, dynamic> json) {
+  factory Wind.fromJson(Json json) {
     return Wind(
-      speed: json['speed'].toDouble(),
-      deg: json['deg'],
-      gust: json['gust'].toDouble(),
+      speed: json.safeDouble('speed'),
+      deg: json.safeInt('deg'),
+      gust: json.safeDouble('gust'),
     );
   }
 
@@ -376,10 +377,10 @@ class Coord extends Model{
     required this.lon,
   });
 
-  factory Coord.fromJson(Map<String, dynamic> json) {
+  factory Coord.fromJson(Json json) {
     return Coord(
-      lat: json['lat'].toDouble(),
-      lon: json['lon'].toDouble(),
+      lat: json.safeDouble('lat'),
+      lon: json.safeDouble('lon'),
     );
   }
 
