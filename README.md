@@ -26,7 +26,17 @@ The app follows a clean architecture with separation of concerns:
 - `data`: contains models(e.g., `weather`) and data source(e.g., `http`)
 - `domain/repositories`: Contains the API service responsible for fetching products.
 - `presentation/bloc`: Includes logic for fetching and managing weather state.
-- `presentation/pages`: Contains the UI for the app 
+- `presentation/pages`: Contains the UI for the app
+
+
+![architectre](https://github.com/user-attachments/assets/4b74fb0f-7d10-49d1-ae0e-1add91761ab5)
+
+
+## App video
+
+https://github.com/user-attachments/assets/4958862d-37c9-4a6b-b845-a057fad6e035
+
+
 
 ## Setup Instructions
 
